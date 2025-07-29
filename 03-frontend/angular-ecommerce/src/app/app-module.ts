@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { ProductList } from './components/product-list/product-list';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ProductService } from './services/product.service';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { ProductCategoryMenu } from './components/product-category-menu/product-category-menu';
@@ -16,9 +16,20 @@ import { CartStatus } from './components/cart-status/cart-status';
 import { CartDetails } from './components/cart-details/cart-details';
 import { Checkout } from './components/checkout/checkout';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoginStatus } from './components/login-status/login-status';
+import myAppConfig from './config/my-app-config';
+import { AuthInterceptorService } from './services/auth-interceptor-service';
+import { Login } from './components/login/login';
+import { AuthGuard, AuthHttpInterceptor, AuthModule, AuthService } from '@auth0/auth0-angular';
+import { MembersPage } from './components/members-page/members-page';
+
+
 
 
 const routes: Routes = [
+  // { path: 'login/callback', component: AuthInterceptorService },
+  // { path: 'login', component: Login },
+  { path: 'members', component: MembersPage, canActivate: [AuthGuard]},
   { path: 'checkout', component: Checkout },
   { path: 'cart-details', component: CartDetails },
   { path: 'products/:id', component: ProductDetails },
@@ -30,26 +41,38 @@ const routes: Routes = [
   { path: '**', redirectTo: '/products', pathMatch: 'full' }
 ]
 
+// Removed manual instantiation of AuthService, as it should be injected by Angular
+
 @NgModule({
   declarations: [
     App,
     ProductList,
-    ProductCategoryMenu,
-    Search,
     ProductDetails,
+    ProductCategoryMenu,
+    Checkout,
     CartStatus,
     CartDetails,
-    Checkout
+    Search,
+    LoginStatus,
+    Login,
+    MembersPage
   ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
+    AppRoutingModule,
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AuthModule.forRoot({
+      ...myAppConfig.auth,
+      // cacheLocation: 'localstorage',
+      httpInterceptor: {
+        ...myAppConfig.httpInterceptor,
+      },
+    })
   ],
-  providers: [ProductService],
+  providers: [ProductService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true, },],
   bootstrap: [App]
 })
 export class AppModule { }

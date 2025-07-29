@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CartItem } from '../common/cart-item';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +9,23 @@ export class Cart {
 
   cartItems: CartItem[] = [];
 
-  totalPrice: Subject<number> = new Subject<number>();
-  totalQuantity: Subject<number> = new Subject<number>();
+  totalPrice: Subject<number> = new BehaviorSubject<number>(0);
+  totalQuantity: Subject<number> = new BehaviorSubject<number>(0);
+
+  // storage: Storage = sessionStorage;
+  storage: Storage = localStorage;
+
 
   constructor() {
+    //read data from storage
+    let data = JSON.parse(this.storage.getItem('cartItems')!);
+
+    if (data != null) {
+      this.cartItems = data;
+    }
+
+    // compute totals based on the data read from storage
+    this.computeCartTotals();
 
   }
 
@@ -47,6 +60,7 @@ export class Cart {
     // compute cart total price and total quantity
     this.computeCartTotals();
   }
+
   computeCartTotals() {
     let totalPrice: number = 0;
     let totalQuantity: number = 0;
@@ -62,7 +76,15 @@ export class Cart {
     this.totalQuantity.next(totalQuantity);
     // log cart data for debugging
     this.logCartData(totalPrice, totalQuantity);
+
+    //persist cart data
+    this.persistCartItems();
   }
+
+  persistCartItems() {
+    this.storage.setItem('cartItems', JSON.stringify(this.cartItems));
+  }
+
   logCartData(totalPrice: number, totalQuantity: number) {
     console.log('Contents of the cart');
     for (let tempCartItem of this.cartItems) {
