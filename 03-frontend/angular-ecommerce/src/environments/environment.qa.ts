@@ -1,4 +1,5 @@
 export const environment = {
     production: false,
-    shopApiUrl: 'https://localhost:9898/api'
+    shopApiUrl: 'https://localhost:9898/api',
+    envName: 'qa'
 };

@@ -1,4 +1,5 @@
 export const environment = {
     production: true,
-    shopApiUrl: 'https://amadigital.com/api'
+    shopApiUrl: 'https://amadigital.com/api',
+    envName: 'production'
 };

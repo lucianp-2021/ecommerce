@@ -1,4 +1,5 @@
 export const environment = {
     production: false,
-    shopApiUrl: 'http://localhost:8080/api'
+    shopApiUrl: 'http://localhost:8080/api',
+    envName: 'defautltDev'
 };

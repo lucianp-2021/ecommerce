@@ -89,16 +89,16 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular/build:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
               "buildTarget": "angular-ecommerce:build:production"
             },
-            "development": {
-              "buildTarget": "angular-ecommerce:build:development"
-            },
             "qa": {
               "buildTarget": "angular-ecommerce:build:qa"
+            },
+            "development": {
+              "buildTarget": "angular-ecommerce:build:development"
             }
           },
           "defaultConfiguration": "development"

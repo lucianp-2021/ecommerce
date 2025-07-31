@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable, from, lastValueFrom } from 'rxjs';
 import { HttpEvent, HttpHandler, HttpRequest, HttpInterceptor } from '@angular/common/http';
 import { AuthService } from '@auth0/auth0-angular';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthInterceptorService implements HttpInterceptor {
