@@ -22,6 +22,9 @@ import { AuthInterceptorService } from './services/auth-interceptor-service';
 import { Login } from './components/login/login';
 import { AuthGuard, AuthHttpInterceptor, AuthModule, AuthService } from '@auth0/auth0-angular';
 import { MembersPage } from './components/members-page/members-page';
+import { OrderHistory } from './common/order-history';
+import { OrderHistoryComponent } from './components/order-history-component/order-history-component';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -29,6 +32,7 @@ import { MembersPage } from './components/members-page/members-page';
 const routes: Routes = [
   // { path: 'login/callback', component: AuthInterceptorService },
   // { path: 'login', component: Login },
+  { path: 'order-history', component: OrderHistoryComponent, canActivate: [AuthGuard]},
   { path: 'members', component: MembersPage, canActivate: [AuthGuard]},
   { path: 'checkout', component: Checkout },
   { path: 'cart-details', component: CartDetails },
@@ -55,7 +59,8 @@ const routes: Routes = [
     Search,
     LoginStatus,
     Login,
-    MembersPage
+    MembersPage,
+    OrderHistoryComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -64,6 +69,7 @@ const routes: Routes = [
     AppRoutingModule,
     NgbModule,
     ReactiveFormsModule,
+    CommonModule,
     AuthModule.forRoot({
       ...myAppConfig.auth,
       // cacheLocation: 'localstorage',
@@ -71,7 +77,7 @@ const routes: Routes = [
         ...myAppConfig.httpInterceptor,
       },
     })
-  ],
+   ],
   providers: [ProductService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true, },],
   bootstrap: [App]
 })

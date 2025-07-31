@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Product } from '../common/product';
 import { map } from 'rxjs/operators';
 import { ProductCategory } from '../common/product-category';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,8 @@ import { ProductCategory } from '../common/product-category';
 export class ProductService {
 
 
-  private baseUrl = 'http://localhost:8080/api/products';
-  private categoryUrl = 'http://localhost:8080/api/product-category';
+  private baseUrl = environment.shopApiUrl + '/products';
+  private categoryUrl = environment.shopApiUrl + '/product-category';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -35,6 +36,7 @@ export class ProductService {
   getProductList(theCategoryId: number): Observable<Product[]> {
     //need to build URL based on category id
     const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`;
+    console.log('searchUrl: ' + searchUrl);
 
     return this.getProducts(searchUrl);
   }

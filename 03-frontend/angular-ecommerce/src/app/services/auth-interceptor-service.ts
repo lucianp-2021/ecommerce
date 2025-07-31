@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable, from, lastValueFrom } from 'rxjs';
 import { HttpEvent, HttpHandler, HttpRequest, HttpInterceptor } from '@angular/common/http';
 import { AuthService } from '@auth0/auth0-angular';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({ providedIn: 'root' })
 export class AuthInterceptorService implements HttpInterceptor {
@@ -12,11 +13,12 @@ export class AuthInterceptorService implements HttpInterceptor {
   }
 
   private async handleAccess(request: HttpRequest<any>, next: HttpHandler): Promise<HttpEvent<any>> {
-    const securedEndpoints = ['http://localhost:8080/api/orders'];
+    const theEndpoint = environment.shopApiUrl + '/orders';
+    const securedEndpoints = [theEndpoint];
 
     if (securedEndpoints.some((url) => request.urlWithParams.includes(url))) {
       await this.auth.getAccessTokenSilently().forEach((token) => {
-        console.log('Access Token: ', token);
+        // console.log('Access Token: ', token);
         request = request.clone({
           setHeaders: {
             Authorization: `Bearer ${token}`,

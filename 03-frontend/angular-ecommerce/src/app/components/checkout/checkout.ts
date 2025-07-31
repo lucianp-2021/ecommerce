@@ -30,6 +30,8 @@ export class Checkout implements OnInit {
   shippingAddressStates: State[] = [];
   billingAddressStates: State[] = [];
 
+  storage: Storage = sessionStorage;
+
   constructor(private formBuilder: FormBuilder,
     private shopFormService: ShopFormService,
     private cartService: Cart,
@@ -42,11 +44,14 @@ export class Checkout implements OnInit {
 
     this.reviewCartDetails();
 
+    // read the user's email from the browser storage
+    const theEmail = JSON.parse(this.storage.getItem('userEmail')!);
+
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
         firstName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50), ShopValidators.notOnlyWhitespace]),
         lastName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50), ShopValidators.notOnlyWhitespace]),
-        email: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,5}$'), ShopValidators.notOnlyWhitespace])
+        email: new FormControl(theEmail, [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,5}$'), ShopValidators.notOnlyWhitespace])
       }),
       shippingAddress: this.formBuilder.group({
         street: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50), ShopValidators.notOnlyWhitespace]),

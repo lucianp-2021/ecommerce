@@ -13,8 +13,9 @@ export class LoginStatus implements OnInit {
   isAuthenticated: boolean = false;
   profileJson: string | undefined;
   userEmail: string | undefined;
-  storage: Storage = sessionStorage;
   userFullName: string = '';
+
+  storage: Storage = sessionStorage;
 
   constructor(
     private auth: AuthService,
@@ -47,6 +48,15 @@ export class LoginStatus implements OnInit {
           console.log('User details method return:', this.userFullName);
         } else {
           this.userFullName = '';
+        }
+
+        // get user email from authenticated user
+        const theEmail = user?.email;
+
+        // Store the email in session storage
+        if (theEmail) {
+          this.storage.setItem('userEmail', JSON.stringify(theEmail));
+          console.log('User email stored in session storage:', theEmail);
         }
       }
       );
