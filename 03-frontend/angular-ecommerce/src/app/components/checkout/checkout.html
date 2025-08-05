@@ -86,7 +86,7 @@
                             <div class="input-space">
                                 <select formControlName="country" (change)="getStates('shippingAddress')">
                                     <option *ngFor="let country of countries" [ngValue]="country">
-                                        {{country.name}}
+                                        {{country?.name}}
                                     </option>
                                 </select>
                                 <div *ngIf="shippingAddressCountry?.invalid && (shippingAddressCountry?.dirty || shippingAddressCountry?.touched)"
@@ -146,7 +146,7 @@
                             <div class="input-space">
                                 <select formControlName="state">
                                     <option *ngFor="let state of shippingAddressStates" [ngValue]="state">
-                                        {{state.name}}
+                                        {{state?.name}}
                                     </option>
                                 </select>
                                 <div *ngIf="shippingAddressState?.invalid && (shippingAddressState?.dirty || shippingAddressState?.touched)"
@@ -197,7 +197,7 @@
                             <div class="input-space">
                                 <select formControlName="country" (change)="getStates('billingAddress')">
                                     <option *ngFor="let country of countries" [ngValue]="country">
-                                        {{country.name}}
+                                        {{country?.name}}
                                     </option>
                                 </select>
                                 <div *ngIf="billingAddressCountry?.invalid && (billingAddressCountry?.dirty || billingAddressCountry?.touched)"
@@ -257,7 +257,7 @@
                             <div class="input-space">
                                 <select formControlName="state">
                                     <option *ngFor="let state of billingAddressStates" [ngValue]="state">
-                                        {{state.name}}
+                                        {{state?.name}}
                                     </option>
                                 </select>
                                 <div *ngIf="billingAddressState?.invalid && (billingAddressState?.dirty || billingAddressState?.touched)"
@@ -295,7 +295,7 @@
                 <!-- Stripe Elements Credit Card Section -->
                 <div formGroupName="creditCard" class="form-area">
                     <h3>Credit or Debit</h3>
-                    <div id="card-element">
+                    <div id="card-element" placeholder="4242 4242 4242 4242">
                         <!-- a stripe element will be here -->
                     </div>
 

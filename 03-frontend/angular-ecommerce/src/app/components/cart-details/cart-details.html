@@ -25,7 +25,8 @@
 
                                 <div class="row no-gutters">
                                     <div class="col">
-                                        <button (click)="incrementQuantity(tempCartItem)" class="btn btn-primary btn-sm">
+                                        <button (click)="incrementQuantity(tempCartItem)"
+                                            class="btn btn-primary btn-sm">
                                             <i class="fas fa-plus"></i>
                                         </button>
                                     </div>
@@ -35,7 +36,8 @@
                                     </div>
 
                                     <div class="col">
-                                        <button (click)="decrementQuantity(tempCartItem)" class="btn btn-primary btn-sm">
+                                        <button (click)="decrementQuantity(tempCartItem)"
+                                            class="btn btn-primary btn-sm">
                                             <i class="fas fa-minus"></i>
                                         </button>
                                     </div>
@@ -44,8 +46,10 @@
                                 </div>
 
                             </div>
-                            <button (click)="remove(tempCartItem)" type="button" class="btn btn-primary btn-sm">Remove</button>
-                            <p class="mt-2">Subtotal: {{ tempCartItem.quantity * tempCartItem.unitPrice | currency: 'USD' }}</p>
+                            <button (click)="remove(tempCartItem)" type="button"
+                                class="btn btn-primary btn-sm">Remove</button>
+                            <p class="mt-2">Subtotal: {{ tempCartItem.quantity * tempCartItem.unitPrice | currency:
+                                'USD' }}</p>
                         </td>
                     </tr>
 
@@ -55,7 +59,11 @@
                             <p>Total Quantity: {{ totalQuantity }}</p>
                             <p>Shipping: FREE</p>
                             <p>Total Price: {{ totalPrice | currency: 'USD' }}</p>
-                            <a routerLink="/checkout" class="btn btn-primary">Checkout</a>
+                            <a *ngIf="getUserStatus"
+                               routerLink="/checkout"
+                               class="btn btn-primary"
+                               [class.disabled]="isDisabled"
+                               [style.pointer-events]="isDisabled ? 'none' : 'auto'">Checkout</a>
                         </td>
                     </tr>
 
@@ -65,9 +73,8 @@
 
             <!-- if cart is empty then display a message -->
             <div *ngIf="cartItems.length == 0" class="alert alert-warning col-md-12" role="alert">
-                Your shopping cart is empty. 
+                Your shopping cart is empty.
             </div>
-
         </div>
     </div>
 </div>

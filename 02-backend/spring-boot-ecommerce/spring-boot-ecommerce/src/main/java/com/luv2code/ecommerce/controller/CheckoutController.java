@@ -10,13 +10,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/api/checkout")
 public class CheckoutController {
 
-    private Logger logger = Logger.getLogger(getClass().getName());
+    private final Logger logger = LoggerFactory.getLogger(getClass().getName());
 
     private final CheckoutService checkoutService;
 
@@ -26,19 +27,32 @@ public class CheckoutController {
 
     @PostMapping("/purchase")
     public PurchaseResponse placeOrder(@RequestBody Purchase purchase) {
-        PurchaseResponse purchaseResponse = checkoutService.placeOrder(purchase);
-        return purchaseResponse;
+        try {
+            // Log the purchase details for debugging
+            logger.info("Purchase details: {}", purchase);
+            return checkoutService.placeOrder(purchase);
+        } catch (Exception e) {
+            logger.error("Error logging purchase details: {}", e.getMessage());
+        }
+        return null;
     }
 
     @PostMapping("/payment-intent")
     public ResponseEntity<String> createPaymentIntent(@RequestBody PaymentInfo paymentInfo) throws StripeException {
 
-        logger.info("pyment.amount: " + paymentInfo.getAmount() + " " + paymentInfo.getCurrency());
+        try {
+            // Log the payment info for debugging
+            logger.info("pyment.amount: {} {}", paymentInfo.getAmount(), paymentInfo.getCurrency());
+            //Create a payment intent using the provided payment info
+            PaymentIntent paymentIntent = checkoutService.createPaymentIntent(paymentInfo);
+            String paymentStr = paymentIntent.toJson();
+//            logger.info("PAYMENT STRING{}", paymentStr);
+            // Return the payment intent as a JSON string
+            return new ResponseEntity<>(paymentStr, HttpStatus.OK);
 
-        // Create a payment intent using the provided payment info
-        PaymentIntent paymentIntent = checkoutService.createPaymentIntent(paymentInfo);
-        String paymentStr = paymentIntent.toJson();
-        // Return the payment intent as a JSON string
-        return new ResponseEntity<>(paymentStr, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("Error logging payment info: {}", e.getMessage());
+            return new ResponseEntity<>("Error logging payment info", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

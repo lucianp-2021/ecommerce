@@ -12,6 +12,7 @@ import { Purchase } from '../../common/purchase';
 import { OrderItem } from '../../common/order-item';
 import { environment } from '../../../environments/environment';
 import { PaymentInfo } from '../../common/payment-info';
+import { Login } from '../login/login';
 
 @Component({
   selector: 'app-checkout',
@@ -62,6 +63,13 @@ export class Checkout implements OnInit {
 
     // read the user's email from the browser storage
     const theEmail = JSON.parse(this.storage.getItem('userEmail')!);
+
+    // display a message if user is not logged in
+    if (!theEmail) {
+      alert("You must be logged in to checkout.");
+      this.router.navigateByUrl("/login");
+      return;
+    }
 
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
@@ -155,26 +163,26 @@ export class Checkout implements OnInit {
 
   }
 
-  get firstName() { return this.checkoutFormGroup.get('customer.firstName'); }
-  get lastName() { return this.checkoutFormGroup.get('customer.lastName'); }
-  get email() { return this.checkoutFormGroup.get('customer.email'); }
+  get firstName() { return this.checkoutFormGroup?.get('customer.firstName'); }
+  get lastName() { return this.checkoutFormGroup?.get('customer.lastName'); }
+  get email() { return this.checkoutFormGroup?.get('customer.email'); }
 
-  get shippingAddressStreet() { return this.checkoutFormGroup.get('shippingAddress.street'); }
-  get shippingAddressCity() { return this.checkoutFormGroup.get('shippingAddress.city'); }
-  get shippingAddressState() { return this.checkoutFormGroup.get('shippingAddress.state'); }
-  get shippingAddressCountry() { return this.checkoutFormGroup.get('shippingAddress.country'); }
-  get shippingAddressZipCode() { return this.checkoutFormGroup.get('shippingAddress.zipCode'); }
+  get shippingAddressStreet() { return this.checkoutFormGroup?.get('shippingAddress.street'); }
+  get shippingAddressCity() { return this.checkoutFormGroup?.get('shippingAddress.city'); }
+  get shippingAddressState() { return this.checkoutFormGroup?.get('shippingAddress.state'); }
+  get shippingAddressCountry() { return this.checkoutFormGroup?.get('shippingAddress.country'); }
+  get shippingAddressZipCode() { return this.checkoutFormGroup?.get('shippingAddress.zipCode'); }
 
-  get billingAddressStreet() { return this.checkoutFormGroup.get('billingAddress.street'); }
-  get billingAddressCity() { return this.checkoutFormGroup.get('billingAddress.city'); }
-  get billingAddressState() { return this.checkoutFormGroup.get('billingAddress.state'); }
-  get billingAddressCountry() { return this.checkoutFormGroup.get('billingAddress.country'); }
-  get billingAddressZipCode() { return this.checkoutFormGroup.get('billingAddress.zipCode'); }
+  get billingAddressStreet() { return this.checkoutFormGroup?.get('billingAddress.street'); }
+  get billingAddressCity() { return this.checkoutFormGroup?.get('billingAddress.city'); }
+  get billingAddressState() { return this.checkoutFormGroup?.get('billingAddress.state'); }
+  get billingAddressCountry() { return this.checkoutFormGroup?.get('billingAddress.country'); }
+  get billingAddressZipCode() { return this.checkoutFormGroup?.get('billingAddress.zipCode'); }
 
-  get cardType() { return this.checkoutFormGroup.get('creditCard.cardType'); }
-  get nameOnCard() { return this.checkoutFormGroup.get('creditCard.nameOnCard'); }
-  get cardNumber() { return this.checkoutFormGroup.get('creditCard.cardNumber'); }
-  get cardSecurityCode() { return this.checkoutFormGroup.get('creditCard.securityCode'); }
+  get cardType() { return this.checkoutFormGroup?.get('creditCard.cardType'); }
+  get nameOnCard() { return this.checkoutFormGroup?.get('creditCard.nameOnCard'); }
+  get cardNumber() { return this.checkoutFormGroup?.get('creditCard.cardNumber'); }
+  get cardSecurityCode() { return this.checkoutFormGroup?.get('creditCard.securityCode'); }
   // get cardExpirationMonth() { return this.checkoutFormGroup.get('creditCard.expirationMonth'); }
   // get cardExpirationYear() { return this.checkoutFormGroup.get('creditCard.expirationYear'); }
 
@@ -385,10 +393,10 @@ export class Checkout implements OnInit {
     }
     console.log(formGroup.value); // See what fields are present
     console.log(formGroup.value.country); // Check if country exists
-    const countryCode = formGroup.value.country.code;
+    const countryCode = formGroup?.value?.country?.code;
     console.log(`${formGroupName} country code:  ${countryCode}`);
 
-    const countryName = formGroup.value.country.name;
+    const countryName = formGroup?.value?.country?.name;
     console.log(`${formGroupName} country name:  ${countryName}`);
 
     this.shopFormService.getStates(countryCode).subscribe(
@@ -401,7 +409,7 @@ export class Checkout implements OnInit {
         }
 
         // select the first item by default
-        formGroup.get('state')?.setValue(data[0]);
+        formGroup?.get('state')?.setValue(data[0]);
       }
     );
   }

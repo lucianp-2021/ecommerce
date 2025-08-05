@@ -11,6 +11,7 @@ import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 import jakarta.transaction.Transactional;
+import org.apache.catalina.servlets.DefaultServlet;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +43,7 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         //populate order with orderItems
         Set<OrderItem> orderItems = purchase.getOrderItems();
-        orderItems.forEach(item -> order.add(item));
+        orderItems.forEach(order::add);
 
         //populate the order with billingAddress and shippingAddress
         order.setBillingAddress(purchase.getBillingAddress());
@@ -67,6 +68,9 @@ public class CheckoutServiceImpl implements CheckoutService {
         //save to the database
         customerRepository.save(customer);
 
+        //assign PurchaseResponse object to the purchaseResponse when placing the order
+        logger.info("Order tracking number from placeOrder() : " + orderTrackingNumber);
+
         //get  response
         return new PurchaseResponse(orderTrackingNumber);
     }
@@ -82,10 +86,7 @@ public class CheckoutServiceImpl implements CheckoutService {
         params.put("currency", paymentInfo.getCurrency());
         params.put("payment_method_types", paymentMethodTypes);
         params.put("description", "AmaDigital Order Payment");
-        params.put("receipt_email",paymentInfo.getReceiptEmail());
-//        params.put("orderTrackingNumber", purchase.getOrder().getOrderTrackingNumber());
-//
-//        logger.info("ORDER_TRACKING_NUMBER: " + purchase.getOrder().getOrderTrackingNumber());
+        params.put("receipt_email", paymentInfo.getReceiptEmail());
 
         return PaymentIntent.create(params);
     }
