@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --ssl=true --ssl-key=./ssl-localhost/localhost.key --ssl-cert=./ssl-localhost/localhost.crt",
+    "start:dev": "ng serve --ssl=true --ssl-key=./ssl-localhost/localhost.key --ssl-cert=./ssl-localhost/localhost.crt --configuration=development",
+    "start:qa": "ng serve --ssl=true --ssl-key=./ssl-localhost/localhost.key --ssl-cert=./ssl-localhost/localhost.crt --configuration=qa",
+    "start:prod": "ng serve --ssl=true --ssl-key=./ssl-localhost/localhost.key --ssl-cert=./ssl-localhost/localhost.crt --configuration=production",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -33,6 +35,7 @@
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.2.0",
     "rxjs": "~7.8.0",
+    "stripe": "^8.179.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },

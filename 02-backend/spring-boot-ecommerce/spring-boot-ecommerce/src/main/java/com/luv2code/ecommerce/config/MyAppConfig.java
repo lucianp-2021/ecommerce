@@ -5,8 +5,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.logging.Logger;
+
 @Configuration
 public class MyAppConfig implements WebMvcConfigurer {
+    private Logger logger = Logger.getLogger(getClass().getName());
+
     // This class can be used to configure additional settings for the application
     // such as view resolvers, message converters, etc.
     // Currently, it does not contain any specific configurations.
@@ -22,5 +26,6 @@ public class MyAppConfig implements WebMvcConfigurer {
         //set CORS mapping for the application
         cors.addMapping(basePath + "/**")
             .allowedOrigins(theAllowedOrigins);
+        logger.info("baseAPI: " + basePath + "/**");
     }
 }

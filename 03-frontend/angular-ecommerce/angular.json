@@ -90,6 +90,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "buildTarget": "angular-ecommerce:build:development"
+          },
           "configurations": {
             "production": {
               "buildTarget": "angular-ecommerce:build:production"

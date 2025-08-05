@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OrderHistory } from '../common/order-history';
+// Update the import path if your environment file is located elsewhere, for example:
 import { environment } from '../../environments/environment';
 
 @Injectable({

@@ -1,5 +1,6 @@
 export const environment = {
     production: false,
-    shopApiUrl: 'https://localhost:8443/api'
-    // shopApiUrl: 'https://localhost:9898/api'
+    console: console.log('DEFAULT environment loaded'),
+    shopApiUrl: "https://localhost:8443/api",
+    stripePublishableKey: "pk_test_51RrF6iQc0glQMOkb6SO0JLaCQzhnwTpiZxIOD0CidmCv0DnuTIMsyFbeRkDnCPZ0vCj4WhZ0YEFtu21DvYevAlgQ00pmnuF3Yf"
 };

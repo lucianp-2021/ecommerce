@@ -29,15 +29,15 @@ export class OrderHistoryComponent implements OnInit {
     console.log('Retrieved user email:', theEmail);
 
     // retreieve data from the order history service
-    this.orderHistoryService.getOrderHistory(theEmail).subscribe(
-      data => {
+    this.orderHistoryService.getOrderHistory(theEmail).subscribe({
+      next: data => {
         this.orderHistoryList = data._embedded.orders;
         console.log('Order history retrieved:', this.orderHistoryList);
       },
-      error => {
+      error: error => {
         console.error('Error retrieving order history:', error);
       }
-    );
+    });
   }
 
 }

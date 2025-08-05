@@ -1,3 +1,4 @@
+
 export default {
     auth: {
         domain: "dev-unktrv06ka6he3fg.eu.auth0.com",
