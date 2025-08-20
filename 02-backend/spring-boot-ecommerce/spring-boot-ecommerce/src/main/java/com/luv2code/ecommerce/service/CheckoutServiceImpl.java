@@ -54,13 +54,16 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         //check if this is an existing customer
         String email = customer.getEmail();
+        String phoneNumber = customer.getPhoneNumber();
         Customer customerFromDb = customerRepository.findByEmail(email);
         if (customerFromDb != null) {
             //found the customer in the database
             customer = customerFromDb;
+            customer.setPhoneNumber(phoneNumber);
         } else {
             //not found, save the new customer
             customer.setEmail(email);
+            customer.setPhoneNumber(phoneNumber);
         }
 
         customer.add(order);

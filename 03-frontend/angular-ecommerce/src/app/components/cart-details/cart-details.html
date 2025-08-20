@@ -59,14 +59,14 @@
                             <p>Total Quantity: {{ totalQuantity }}</p>
                             <p>Shipping: FREE</p>
                             <p>Total Price: {{ totalPrice | currency: 'USD' }}</p>
-                            <a *ngIf="getUserStatus"
-                               routerLink="/checkout"
-                               class="btn btn-primary"
-                               [class.disabled]="isDisabled"
-                               [style.pointer-events]="isDisabled ? 'none' : 'auto'">Checkout</a>
+                            <a *ngIf="getUserStatus" routerLink="/checkout" class="btn btn-primary"
+                                [class.disabled]="isDisabled" [style.pointer-events]="isDisabled ? 'none' : 'auto'">
+                                Checkout </a>                                
+                            <span *ngIf="isDisabled" class="tooltip-text" tooltipposition="top" tooltipevent="focus" style="color: red;">
+                                <i class="p-element fas fa-info-circle ml-1 text-secondary ng-star-inserted"></i> You must be logged in to checkout!
+                            </span>
                         </td>
                     </tr>
-
                 </table>
 
             </div>

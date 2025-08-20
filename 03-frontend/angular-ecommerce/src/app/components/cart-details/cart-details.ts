@@ -16,6 +16,7 @@ export class CartDetails implements OnInit {
   totalQuantity: number = 0;
   isAuthenticated: boolean = false;
   isDisabled: boolean = false
+  hoverMessage: string = '';
 
   constructor(private cartService: Cart, private authService: AuthService) {
 
@@ -26,12 +27,18 @@ export class CartDetails implements OnInit {
     this.getUserStatus();
   }
 
+  onMouseOver(){
+    this.hoverMessage = 'You must be logged in to checkout!';
+    console.log('Mouse over event triggered on cart details');
+  }
+
   getUserStatus(): void {
     this.authService.isAuthenticated$.subscribe((authenticated: boolean) => {
       this.isAuthenticated = authenticated;
       if (!this.isAuthenticated) {
         this.isDisabled = true;
         alert("You must be logged in to checkout!");
+        // this.hoverMessage = "You must be logged in to checkout!";
         console.log('User is not authenticated, checkout not allowed!');
       } else {
         this.isDisabled = false;

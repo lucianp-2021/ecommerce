@@ -4,8 +4,12 @@
   <aside class="menu-sidebar d-none d-lg-block">
     <div class="logo">
       <a routerLink="/products">
-        <img src="assets/images/logo.png" alt="luv2shop" class="img-responsive">
+        <img src="assets/images/logo.png" alt="amadigital" class="img-responsive">
       </a>
+    </div>
+    
+    <div style="display: center; font-weight:bold; width: 90%; text-align: left; background: #9bc8f1; margin: 32px 8px 0;">
+      Products
     </div>
 
     <app-product-category-menu></app-product-category-menu>
@@ -42,10 +46,25 @@
 
 <!-- END PAGE CONTAINER-->
 
-<footer>
+<!-- <footer>
   <ul>
-    <li><a href="#">About Us</a></li>
+    <li><a routerLink="/about-us">About Us</a></li>
     <li><a href="#">Contact Us</a></li>
     <li><a href="#">Help</a></li>
+    <li>
+      <span class="">&copy; 2025 AmaDigital IT Solutions. All rights reserved.</span>
+    </li>
+  </ul>
+</footer> -->
+<footer style="display: block; width: 100%; text-align: center; background: #5287b9; padding: 16px 0;">
+  <ul
+    style="list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; gap: 24px; align-items: center;">
+    <li><a routerLink="/about-us">About Us</a></li>
+    <li><a routerLink="/contact-us">Contact Us</a></li>
+    <li><a routerLink="/utils">Utils</a></li>
+    <li>
+      <span class="copyright">&copy; 2025 AmaDigital IT Solutions. All rights reserved.</span>
+      &nbsp;<a class="copyright" href="https://amadigital.ro" target="_blank" rel="noopener">Powered by AmaDigital IT Solutions.</a>
+    </li>
   </ul>
 </footer>

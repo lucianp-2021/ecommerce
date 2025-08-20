@@ -6,10 +6,10 @@
                 <div formGroupName="customer" class="form-area">
                     <h3>Customer</h3>
                     <div class="row">
-                        <div class="col-md-3"><label>First Name</label></div>
+                        <div class="col-md-3"><label>First Name *</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <input formControlName="firstName" type="text">
+                                <input formControlName="firstName" type="text" class="form-control">
 
                                 <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)"
                                     class="alert alert-danger mt-1">
@@ -23,7 +23,7 @@
                                     </div>
 
                                     <div *ngIf="firstName?.errors?.['maxlength']">
-                                        First Name should have at max 50 characters long!
+                                        First Name should have max 50 characters long!
                                     </div>
 
                                 </div>
@@ -32,10 +32,10 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3"><label>Last Name</label></div>
+                        <div class="col-md-3"><label>Last Name *</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <input formControlName="lastName" type="text">
+                                <input formControlName="lastName" type="text" class="form-control">
 
                                 <div *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)"
                                     class="alert alert-danger mt-1">
@@ -49,7 +49,7 @@
                                     </div>
 
                                     <div *ngIf="lastName?.errors?.['maxlength']">
-                                        Last Name should have at max 50 characters long!
+                                        Last Name should have max 50 characters long!
                                     </div>
                                 </div>
                             </div>
@@ -57,10 +57,10 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3"><label>Email</label></div>
+                        <div class="col-md-3"><label>Email *</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <input formControlName="email" type="text">
+                                <input formControlName="email" type="text" class="form-control">
 
                                 <div *ngIf="email?.invalid && (email?.dirty || email?.touched)"
                                     class="alert alert-danger mt-1">
@@ -76,15 +76,47 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-3"><label>Phone Number *</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input type="text" formControlName="phoneNumber" class="form-control"
+                                    placeholder="07** 111 111">
+
+                                <div *ngIf="phoneNumber?.invalid && (phoneNumber?.dirty || phoneNumber?.touched)"
+                                    class="alert alert-danger mt-1">
+                                    <div
+                                        *ngIf="phoneNumber?.errors?.['required'] || phoneNumber?.errors?.['notOnlyWhitespace']">
+                                        Phone Number is required!
+                                    </div>
+
+                                    <!-- <div *ngIf="phoneNumber?.errors?.['minlength']">
+                                        First Name should have at least 2 characters long!
+                                    </div> -->
+                                    <div *ngIf="phoneNumber?.errors?.['pattern']">
+                                        Invalid phone number format!
+                                    </div>
+
+                                    <div *ngIf="phoneNumber?.errors?.['maxlength']">
+                                        Phone number should have max 13 characters long!
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <!-- shipping address -->
                 <div formGroupName="shippingAddress" class="form-area">
                     <h3>Shipping Address</h3>
                     <div class="row">
-                        <div class="col-md-3"><label>Country</label></div>
+                        <div class="col-md-3"><label>Country *</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <select formControlName="country" (change)="getStates('shippingAddress')">
+                                <select formControlName="country" (change)="getStates('shippingAddress')" class="form-control">
+                                    <option value="" disabled selected>Select the Country</option>
                                     <option *ngFor="let country of countries" [ngValue]="country">
                                         {{country?.name}}
                                     </option>
@@ -100,10 +132,10 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3"><label>Street</label></div>
+                        <div class="col-md-3"><label>Street *</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <input formControlName="street" type="text">
+                                <input formControlName="street" type="text" class="form-control">
                                 <div *ngIf="shippingAddressStreet?.invalid && (shippingAddressStreet?.dirty || shippingAddressStreet?.touched)"
                                     class="alert alert-danger mt-1">
                                     <div
@@ -122,10 +154,10 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3"><label>City</label></div>
+                        <div class="col-md-3"><label>City *</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <input formControlName="city" type="text">
+                                <input formControlName="city" type="text" class="form-control">
                                 <div *ngIf="shippingAddressCity?.invalid && (shippingAddressCity?.dirty || shippingAddressCity?.touched)"
                                     class="alert alert-danger mt-1">
                                     <div
@@ -141,10 +173,11 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3"><label>State</label></div>
+                        <div class="col-md-3"><label>State *</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <select formControlName="state">
+                                <select formControlName="state" class="form-control">
+                                    <option value="" disabled selected>Select the Country first</option>
                                     <option *ngFor="let state of shippingAddressStates" [ngValue]="state">
                                         {{state?.name}}
                                     </option>
@@ -160,10 +193,10 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3"><label>ZipCode</label></div>
+                        <div class="col-md-3"><label>ZipCode *</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <input formControlName="zipCode" type="text">
+                                <input formControlName="zipCode" type="text" class="form-control" placeholder="EX: 123456">
                                 <div *ngIf="shippingAddressZipCode?.invalid && (shippingAddressZipCode?.dirty || shippingAddressZipCode?.touched)"
                                     class="alert alert-danger mt-1">
                                     <div
@@ -192,10 +225,11 @@
                 <div formGroupName="billingAddress" class="form-area">
                     <h3>Billing Address</h3>
                     <div class="row">
-                        <div class="col-md-3"><label>Country</label></div>
+                        <div class="col-md-3"><label>Country *</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <select formControlName="country" (change)="getStates('billingAddress')">
+                                <select formControlName="country" (change)="getStates('billingAddress')" class="form-control">
+                                    <option value="" disabled selected>Select the Country</option>
                                     <option *ngFor="let country of countries" [ngValue]="country">
                                         {{country?.name}}
                                     </option>
@@ -211,10 +245,10 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3"><label>Street</label></div>
+                        <div class="col-md-3"><label>Street *</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <input formControlName="street" type="text">
+                                <input formControlName="street" type="text" class="form-control">
                                 <div *ngIf="billingAddressStreet?.invalid && (billingAddressStreet?.dirty || billingAddressStreet?.touched)"
                                     class="alert alert-danger mt-1">
                                     <div
@@ -233,10 +267,10 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3"><label>City</label></div>
+                        <div class="col-md-3"><label>City *</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <input formControlName="city" type="text">
+                                <input formControlName="city" type="text" class="form-control">
                                 <div *ngIf="billingAddressCity?.invalid && (billingAddressCity?.dirty || billingAddressCity?.touched)"
                                     class="alert alert-danger mt-1">
                                     <div
@@ -252,10 +286,11 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3"><label>State</label></div>
+                        <div class="col-md-3"><label>State *</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <select formControlName="state">
+                                <select formControlName="state" class="form-control">
+                                    <option value="" disabled selected>Select the Country first</option>
                                     <option *ngFor="let state of billingAddressStates" [ngValue]="state">
                                         {{state?.name}}
                                     </option>
@@ -271,10 +306,10 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3"><label>ZipCode</label></div>
+                        <div class="col-md-3"><label>ZipCode *</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <input formControlName="zipCode" type="text">
+                                <input formControlName="zipCode" type="text" class="form-control" placeholder="EX: 123456">
                                 <div *ngIf="billingAddressZipCode?.invalid && (billingAddressZipCode?.dirty || billingAddressZipCode?.touched)"
                                     class="alert alert-danger mt-1">
                                     <div
@@ -294,8 +329,8 @@
                 </div>
                 <!-- Stripe Elements Credit Card Section -->
                 <div formGroupName="creditCard" class="form-area">
-                    <h3>Credit or Debit</h3>
-                    <div id="card-element" placeholder="4242 4242 4242 4242">
+                    <h3>Credit or Debit *</h3>
+                    <div id="card-element">
                         <!-- a stripe element will be here -->
                     </div>
 
@@ -306,7 +341,7 @@
                 </div>
 
                 <!-- order details review -->
-                <div class="form-area">
+                <div class="form-area" >
                     <h3>Review Your Order</h3>
                     <p>Total Quantity: {{totalQuantity}}</p>
                     <p>Shipping: FREE</p>

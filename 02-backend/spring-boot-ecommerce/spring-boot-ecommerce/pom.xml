@@ -28,27 +28,31 @@
     </scm>
     <properties>
         <java.version>17</java.version>
+        <spring-security-config.version>6.3.5</spring-security-config.version>
+        <stripe-java.version>29.2.0</stripe-java.version>
+        <okta-spring-boot-starter.version>3.0.6</okta-spring-boot-starter.version>
+        <commons-lang3.version>3.18.0</commons-lang3.version>
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
-            <version>6.3.5</version>
+            <version>${spring-security-config.version}</version>
         </dependency>
         <dependency>
             <groupId>com.stripe</groupId>
             <artifactId>stripe-java</artifactId>
-            <version>29.2.0</version>
+            <version>${stripe-java.version}</version>
         </dependency>
         <dependency>
             <groupId>com.okta.spring</groupId>
             <artifactId>okta-spring-boot-starter</artifactId>
-            <version>3.0.6</version>
+            <version>${okta-spring-boot-starter.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.14.0</version>
+            <version>${commons-lang3.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

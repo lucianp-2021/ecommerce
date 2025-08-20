@@ -64,6 +64,10 @@ export class Checkout implements OnInit {
     // read the user's email from the browser storage
     const theEmail = JSON.parse(this.storage.getItem('userEmail')!);
 
+    // read the user's phone number from the data base
+    const thePhoneNumber = JSON.parse(this.storage.getItem('userPhoneNumber')!);
+    
+
     // display a message if user is not logged in
     if (!theEmail) {
       alert("You must be logged in to checkout.");
@@ -75,7 +79,8 @@ export class Checkout implements OnInit {
       customer: this.formBuilder.group({
         firstName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50), ShopValidators.notOnlyWhitespace]),
         lastName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50), ShopValidators.notOnlyWhitespace]),
-        email: new FormControl(theEmail, [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,5}$'), ShopValidators.notOnlyWhitespace])
+        email: new FormControl(theEmail, [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,5}$'), ShopValidators.notOnlyWhitespace]),
+        phoneNumber: new FormControl(thePhoneNumber, [Validators.required, Validators.pattern('^[0-9]*$'), Validators.maxLength(13), ShopValidators.notOnlyWhitespace])
       }),
       shippingAddress: this.formBuilder.group({
         street: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50), ShopValidators.notOnlyWhitespace]),
@@ -166,6 +171,7 @@ export class Checkout implements OnInit {
   get firstName() { return this.checkoutFormGroup?.get('customer.firstName'); }
   get lastName() { return this.checkoutFormGroup?.get('customer.lastName'); }
   get email() { return this.checkoutFormGroup?.get('customer.email'); }
+  get phoneNumber() { return this.checkoutFormGroup?.get('customer.phoneNumber'); }
 
   get shippingAddressStreet() { return this.checkoutFormGroup?.get('shippingAddress.street'); }
   get shippingAddressCity() { return this.checkoutFormGroup?.get('shippingAddress.city'); }
@@ -286,6 +292,7 @@ export class Checkout implements OnInit {
                 billing_details: {
                   email: purchase.customer.email,
                   name: `${purchase.customer.firstName} ${purchase.customer.lastName}`,
+                  phone: purchase.customer.phoneNumber,
                   address: {
                     line1: purchase.billingAddress.street,
                     city: purchase.billingAddress.city,

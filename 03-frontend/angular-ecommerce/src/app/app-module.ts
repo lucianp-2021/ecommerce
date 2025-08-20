@@ -25,6 +25,9 @@ import { MembersPage } from './components/members-page/members-page';
 import { OrderHistory } from './common/order-history';
 import { OrderHistoryComponent } from './components/order-history-component/order-history-component';
 import { CommonModule } from '@angular/common';
+import { AboutUs } from './components/about-us/about-us';
+import { ContactUs } from './components/contact-us/contact-us';
+import { Utils } from './components/utils/utils';
 
 
 
@@ -32,6 +35,9 @@ import { CommonModule } from '@angular/common';
 const routes: Routes = [
   // { path: 'login/callback', component: AuthInterceptorService },
   // { path: 'login', component: Login },
+  { path: 'utils', component: Utils},
+  { path: 'contact-us', component: ContactUs},
+  { path: 'about-us', component: AboutUs},
   { path: 'order-history', component: OrderHistoryComponent, canActivate: [AuthGuard]},
   { path: 'members', component: MembersPage, canActivate: [AuthGuard]},
   { path: 'checkout', component: Checkout },
@@ -60,7 +66,10 @@ const routes: Routes = [
     LoginStatus,
     Login,
     MembersPage,
-    OrderHistoryComponent
+    OrderHistoryComponent,
+    AboutUs,
+    ContactUs,
+    Utils
   ],
   imports: [
     RouterModule.forRoot(routes),
